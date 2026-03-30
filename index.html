@@ -21,138 +21,186 @@
         .video-card { position: relative; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s ease; background: #0a0a0a; overflow: hidden; }
         .video-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,62,0,0.2); }
 
-        /* Progress Bar Logic */
-        .progress-line { height: 2px; background: #1a1a1a; position: relative; width: 100%; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); width: 0%; transition: width 2s cubic-bezier(0.22, 1, 0.36, 1); }
-        .reveal-bars .progress-fill { width: var(--percent) !important; }
-
-        .line-1.active { transform: rotate(45deg) translate(5px, 5px); }
+        #mobile-menu.active { transform: translateX(0); }
+        .line-1.active { transform: rotate(45deg) translateY(8px); }
         .line-2.active { opacity: 0; }
-        .line-3.active { transform: rotate(-45deg) translate(7px, -6px); width: 24px !important; }
+        .line-3.active { transform: rotate(-45deg) translateY(-8px); width: 24px !important; }
         
         .cv-card { background: linear-gradient(145deg, #0f0f0f, #050505); border: 1px solid rgba(255,62,0,0.1); }
+
+        /* Progress Bar Animation */
+        .progress-bar { height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent); transition: width 1.5s ease-in-out; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[130] px-6 md:px-12 py-5 flex justify-between items-center bg-black/60 backdrop-blur-lg border-b border-white/5">
-        <a href="#home" class="font-black text-2xl tracking-tighter z-[140]">R<span class="text-orange-600">B</span></a>
+    <nav class="fixed top-0 w-full z-[110] px-6 md:px-12 py-5 flex justify-between items-center bg-black/60 backdrop-blur-lg border-b border-white/5">
+        <a href="#home" class="font-black text-2xl tracking-tighter z-[120]">R<span class="text-orange-600">B</span></a>
+        
         <div class="hidden md:flex gap-10 text-[10px] uppercase font-bold tracking-[0.3em]">
             <a href="#home" class="hover:text-orange-600 transition">Home</a>
             <a href="#about" class="hover:text-orange-600 transition">About</a>
             <a href="#editing" class="hover:text-orange-600 transition">Editing</a>
-            <a href="#stack" class="hover:text-orange-600 transition">Stack</a>
+            <a href="#motion" class="hover:text-orange-600 transition">Motion</a>
             <a href="#contact" class="hover:text-orange-600 transition">Contact</a>
         </div>
-        <button onclick="toggleMenu()" class="md:hidden flex flex-col gap-1.5 z-[140] relative">
-            <span id="l1" class="line-1 w-6 h-0.5 bg-white transition-all"></span>
-            <span id="l2" class="line-2 w-6 h-0.5 bg-white transition-all"></span>
-            <span id="l3" class="line-3 w-4 h-0.5 bg-white self-end transition-all"></span>
+
+        <button onclick="toggleMenu()" class="md:hidden flex flex-col gap-1.5 z-[120] relative focus:outline-none">
+            <span id="l1" class="line-1 w-6 h-0.5 bg-white transition-all duration-300"></span>
+            <span id="l2" class="line-2 w-6 h-0.5 bg-white transition-all duration-300"></span>
+            <span id="l3" class="line-3 w-4 h-0.5 bg-white self-end transition-all duration-300"></span>
         </button>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-black z-[125] flex flex-col items-center justify-center gap-10 translate-x-full transition-transform duration-500 md:hidden">
-        <a href="#home" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">Home</a>
-        <a href="#about" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">About</a>
-        <a href="#editing" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">Editing</a>
-        <a href="#stack" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">Stack</a>
-        <a href="#contact" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest text-orange-600">Contact</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[115] flex flex-col items-center justify-center gap-10 translate-x-full transition-transform duration-500 md:hidden">
+        <a href="#home" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest hover:text-orange-600 transition">Home</a>
+        <a href="#about" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest hover:text-orange-600 transition">About</a>
+        <a href="#editing" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest hover:text-orange-600 transition">Editing</a>
+        <a href="#motion" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest hover:text-orange-600 transition">Motion</a>
+        <a href="#contact" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest hover:text-orange-600 transition">Contact</a>
     </div>
 
-    <section id="home" class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden">
-        <img src="raj-photo.png" class="hero-bg-img" alt="Background">
+    <section id="home" class="relative min-h-[90vh] flex flex-col justify-center px-6 md:px-20 pt-10 overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=1932&auto=format&fit=crop" class="hero-bg-img" alt="Background">
         <div class="hero-overlay"></div>
-        <div class="relative z-10">
-            <h1 class="raj-title" data-aos="fade-right">RAJ<br><span class="outline-text">BIRANGAL</span></h1>
-            <p class="mt-6 text-gray-400 max-w-md tracking-widest uppercase text-xs" data-aos="fade-up">Professional Video Editor & Motion Designer</p>
-        </div>
-    </section>
-
-    <section id="about" class="py-24 px-6 md:px-20 relative z-10">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right">
-                <h2 class="text-5xl font-black uppercase tracking-tighter mb-8 italic">About <span class="text-orange-600">Me</span></h2>
-                <p class="text-gray-400 leading-relaxed mb-6">I am a passionate video editor and storyteller dedicated to creating high-impact visual content. With expertise in cinematic editing and motion graphics, I turn raw footage into compelling narratives.</p>
-                <div class="cv-card p-8 rounded-2xl">
-                    <h4 class="text-orange-600 font-bold uppercase tracking-widest text-sm mb-4">Experience</h4>
-                    <p class="text-xl font-bold">5+ Years in Digital Production</p>
-                    <p class="text-gray-500 text-sm">Worked with 100+ clients worldwide.</p>
-                </div>
-            </div>
-            <div class="relative" data-aos="zoom-in">
-                <img src="raj.jpg" class="rounded-2xl grayscale hover:grayscale-0 transition duration-700 shadow-2xl" alt="Raj Photo">
+        <div data-aos="fade-up" data-aos-duration="1000" class="relative z-10 text-left">
+            <h1 class="raj-title">RAJ<br><span class="outline-text">BIRANGAL</span></h1>
+            <p class="mt-4 text-zinc-400 uppercase tracking-[0.8em] text-[10px] font-bold">Visual Storyteller & Video Editor</p>
+            <div class="mt-8 flex flex-wrap gap-4">
+                <a href="#showreel" class="px-8 py-3 bg-orange-600 text-[10px] uppercase font-bold hover:bg-white hover:text-black transition tracking-widest shadow-lg shadow-orange-600/30">Watch Showreel</a>
+                <a href="https://drive.google.com/file/d/1YHfPbPw-7U7jfAaYjDrdoTvEJco9izik/view?usp=sharing" target="_blank" class="px-8 py-3 border border-orange-600 text-orange-600 text-[10px] uppercase font-bold hover:bg-orange-600 hover:text-white transition tracking-widest">Download CV</a>
             </div>
         </div>
     </section>
 
-    <section id="stack" class="py-24 px-6 md:px-20 bg-[#050505]">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-5xl font-black mb-16 uppercase tracking-tighter" data-aos="fade-up">Software <span class="text-orange-600">Stack</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="skills-container">
-                <div class="space-y-3" data-aos="fade-up">
-                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">Premiere Pro</span><span class="text-orange-600 font-black text-xl">95%</span></div>
-                    <div class="progress-line"><div class="progress-fill" style="--percent: 95%;"></div></div>
+    <section id="about" class="px-6 md:px-20 py-24 bg-zinc-950 border-y border-white/5">
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative group" data-aos="fade-right">
+                <div class="absolute -inset-3 border border-orange-600/20 translate-x-3 translate-y-3"></div>
+                <div class="aspect-[4/5] bg-zinc-900 overflow-hidden relative z-10 border border-white/5">
+                    <img src="raj.jpg" alt="Raj Birangal" class="w-full h-full object-cover grayscale hover:grayscale-0 transition duration-1000">
                 </div>
-                <div class="space-y-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">After Effects</span><span class="text-orange-600 font-black text-xl">85%</span></div>
-                    <div class="progress-line"><div class="progress-fill" style="--percent: 85%;"></div></div>
-                </div>
-                <div class="space-y-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">DaVinci Resolve</span><span class="text-orange-600 font-black text-xl">80%</span></div>
-                    <div class="progress-line"><div class="progress-fill" style="--percent: 80%;"></div></div>
-                </div>
-                <div class="space-y-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">Photoshop</span><span class="text-orange-600 font-black text-xl">90%</span></div>
-                    <div class="progress-line"><div class="progress-fill" style="--percent: 90%;"></div></div>
+            </div>
+            <div data-aos="fade-left">
+                <h3 class="text-orange-600 font-bold uppercase tracking-widest text-[9px] mb-3">// Mastery</h3>
+                <h2 class="text-3xl md:text-5xl font-black uppercase mb-6 leading-tight">Mastering the <br><span class="outline-text">Visual Rhythm</span></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-10">
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase text-white mb-5 tracking-[0.3em] border-l-2 border-orange-600 pl-3">Software Stack</h4>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                                    <span><span class="text-orange-600">Pr</span> Premiere Pro</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                                    <span><span class="text-orange-600">Ae</span> After Effects</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 85%;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                                    <span><span class="text-orange-600">Ps</span> Photoshop</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest text-zinc-400">
+                                    <span><span class="text-orange-600">Dr</span> DaVinci Resolve</span>
+                                    <span>75%</span>
+                                </div>
+                                <div class="progress-bar"><div class="progress-fill" style="width: 75%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cv-card p-6 rounded-sm flex flex-col justify-between border-l-4 border-orange-600">
+                        <div>
+                            <h4 class="text-[10px] font-black uppercase text-white mb-2 tracking-[0.2em]">Professional Resume</h4>
+                            <p class="text-zinc-500 text-[9px] uppercase leading-relaxed">Detailed breakdown of experience, projects, and gear.</p>
+                        </div>
+                        <a href="https://drive.google.com/file/d/1YHfPbPw-7U7jfAaYjDrdoTvEJco9izik/view?usp=sharing" target="_blank" class="mt-6 text-orange-600 font-black text-[10px] uppercase tracking-widest flex items-center gap-2 hover:text-white transition">
+                            View Full CV <span>→</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="editing" class="py-24 px-6 md:px-20">
-        <h2 class="text-5xl font-black uppercase mb-16 italic" data-aos="fade-right">Latest <span class="text-orange-600">Work</span></h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="video-card aspect-video group cursor-pointer" data-aos="fade-up">
-                <div class="absolute inset-0 bg-orange-600/20 opacity-0 group-hover:opacity-100 transition duration-500 z-10 flex items-center justify-center">
-                    <span class="font-bold tracking-tighter text-xl">VIEW PROJECT</span>
+    <section id="showreel" class="px-6 md:px-20 py-24 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-[9px] font-bold text-orange-600 mb-8 tracking-[0.5em] uppercase text-left">// Main Showreels</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="video-card aspect-video" data-aos="zoom-in">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/nCgeyuBjkpQ" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <img src="https://via.placeholder.com/600x400/111/fff?text=Cinematic+Edit" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
-            </div>
-            <div class="video-card aspect-video group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
-                <img src="https://via.placeholder.com/600x400/111/fff?text=Commercial+Ad" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
-            </div>
-            <div class="video-card aspect-video group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                <img src="https://via.placeholder.com/600x400/111/fff?text=Music+Video" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                <div class="video-card aspect-video" data-aos="zoom-in" data-aos-delay="200">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/nwZ_yWn_IUc" frameborder="0" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-32 px-6 text-center bg-[#050505] border-t border-white/5">
-        <h2 class="text-6xl font-black uppercase mb-6 tracking-tighter" data-aos="zoom-in">Let's <span class="text-orange-600">Work</span></h2>
-        <p class="text-gray-500 tracking-[0.4em] uppercase text-xs mb-10">available for freelance projects</p>
-        <a href="mailto:raj@example.com" class="text-2xl md:text-4xl font-light hover:text-orange-600 transition border-b border-orange-600 pb-2">hello@rajbirangal.com</a>
+    <section id="editing" class="px-6 md:px-20 py-24 bg-zinc-950 border-y border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-[9px] font-bold text-orange-600 mb-10 tracking-[0.5em] uppercase text-left">// Video Editing Works</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="video-card aspect-[9/16]" data-aos="fade-up"><iframe class="w-full h-full" src="https://www.youtube.com/embed/Gwe6WkCelcg" frameborder="0"></iframe></div>
+                <div class="video-card aspect-[9/16]" data-aos="fade-up" data-aos-delay="100"><iframe class="w-full h-full" src="https://www.youtube.com/embed/R8EcQFY3hkY" frameborder="0"></iframe></div>
+                <div class="video-card aspect-[9/16]" data-aos="fade-up" data-aos-delay="200"><iframe class="w-full h-full" src="https://www.youtube.com/embed/_V2yniEqRF0" frameborder="0"></iframe></div>
+                <div class="video-card aspect-video md:col-span-2 lg:col-span-1" data-aos="fade-up"><iframe class="w-full h-full" src="https://www.youtube.com/embed/l7eAFkYzP2g" frameborder="0"></iframe></div>
+                <div class="video-card aspect-[9/16]" data-aos="fade-up"><iframe class="w-full h-full" src="https://www.youtube.com/embed/K3cc9CjTtGY" frameborder="0"></iframe></div>
+                <div class="video-card aspect-video md:col-span-2 lg:col-span-1" data-aos="fade-up"><iframe class="w-full h-full" src="https://www.youtube.com/embed/9CM4qr_ibzE" frameborder="0"></iframe></div>
+            </div>
+        </div>
     </section>
+
+    <section id="motion" class="px-6 md:px-20 py-24 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <h3 class="text-[9px] font-bold text-orange-600 mb-10 tracking-[0.5em] uppercase text-left">// Motion Graphics</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="video-card aspect-video" data-aos="fade-up"><iframe class="w-full h-full" src="https://www.youtube.com/embed/_ZfUiPyBCuI" frameborder="0"></iframe></div>
+                <div class="video-card aspect-video" data-aos="fade-up" data-aos-delay="100"><iframe class="w-full h-full" src="https://www.youtube.com/embed/Why9ekMIJ8M" frameborder="0"></iframe></div>
+                <div class="video-card aspect-video" data-aos="fade-up" data-aos-delay="200"><iframe class="w-full h-full" src="https://www.youtube.com/embed/TnfI1SkCkYU" frameborder="0"></iframe></div>
+                <div class="video-card aspect-[9/16]" data-aos="fade-up"><iframe class="w-full h-full" src="https://www.youtube.com/embed/mSovythNavg" frameborder="0"></iframe></div>
+                <div class="video-card aspect-[9/16]" data-aos="fade-up" data-aos-delay="100"><iframe class="w-full h-full" src="https://www.youtube.com/embed/VvzfPVwJ-x0" frameborder="0"></iframe></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="px-6 md:px-20 py-24 bg-zinc-950">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-black uppercase italic mb-10" data-aos="fade-up">Let's <span class="text-orange-600">Work.</span></h2>
+            <form class="grid md:grid-cols-2 gap-6 text-left" data-aos="fade-up">
+                <input type="text" placeholder="NAME" class="bg-white/5 border border-white/10 p-4 outline-none focus:border-orange-600 text-[10px] font-bold uppercase tracking-widest text-white">
+                <input type="email" placeholder="EMAIL" class="bg-white/5 border border-white/10 p-4 outline-none focus:border-orange-600 text-[10px] font-bold uppercase tracking-widest text-white">
+                <textarea rows="3" placeholder="PROJECT DETAILS" class="md:col-span-2 bg-white/5 border border-white/10 p-4 outline-none focus:border-orange-600 text-[10px] font-bold uppercase tracking-widest text-white"></textarea>
+                <button type="submit" class="md:col-span-2 bg-orange-600 text-white font-black uppercase py-4 text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">Send Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="py-10 text-center border-t border-white/5 opacity-30 text-[7px] tracking-[1.5em] uppercase">
+        Raj Birangal © 2026
+    </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
-
         function toggleMenu() {
-            document.getElementById('mobile-menu').classList.toggle('translate-x-full');
-            document.getElementById('l1').classList.toggle('active');
-            document.getElementById('l2').classList.toggle('active');
-            document.getElementById('l3').classList.toggle('active');
+            const menu = document.getElementById('mobile-menu');
+            const l1 = document.getElementById('l1'), l2 = document.getElementById('l2'), l3 = document.getElementById('l3');
+            menu.classList.toggle('translate-x-full'); menu.classList.toggle('translate-x-0');
+            l1.classList.toggle('active'); l2.classList.toggle('active'); l3.classList.toggle('active');
         }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-bars');
-                }
-            });
-        }, { threshold: 0.3 });
-
-        observer.observe(document.getElementById('skills-container'));
     </script>
 </body>
 </html>
