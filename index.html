@@ -15,153 +15,142 @@
         .raj-title { font-family: 'Syncopate', sans-serif; font-size: clamp(2.2rem, 9vw, 5.5rem); line-height: 0.85; letter-spacing: -3px; text-transform: uppercase; position: relative; z-index: 10; }
         .outline-text { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.3); }
         
+        .hero-bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: 0.4; filter: grayscale(80%) contrast(110%); }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,1) 100%); z-index: 1; }
+
+        .video-card { position: relative; border: 1px solid rgba(255,255,255,0.1); transition: 0.5s ease; background: #0a0a0a; overflow: hidden; }
+        .video-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(255,62,0,0.2); }
+
         /* Progress Bar Logic */
         .progress-line { height: 2px; background: #1a1a1a; position: relative; width: 100%; overflow: hidden; }
-        .progress-fill { 
-            height: 100%; 
-            background: var(--accent); 
-            box-shadow: 0 0 10px var(--accent); 
-            width: 0%; 
-            transition: width 2s cubic-bezier(0.22, 1, 0.36, 1); 
-        }
-        
-        /* Trigger class for JS */
+        .progress-fill { height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); width: 0%; transition: width 2s cubic-bezier(0.22, 1, 0.36, 1); }
         .reveal-bars .progress-fill { width: var(--percent) !important; }
 
-        /* Navigation Animations */
         .line-1.active { transform: rotate(45deg) translate(5px, 5px); }
         .line-2.active { opacity: 0; }
         .line-3.active { transform: rotate(-45deg) translate(7px, -6px); width: 24px !important; }
         
-        #mobile-menu { transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,1) 100%); z-index: 1; }
+        .cv-card { background: linear-gradient(145deg, #0f0f0f, #050505); border: 1px solid rgba(255,62,0,0.1); }
     </style>
 </head>
 <body>
 
     <nav class="fixed top-0 w-full z-[130] px-6 md:px-12 py-5 flex justify-between items-center bg-black/60 backdrop-blur-lg border-b border-white/5">
         <a href="#home" class="font-black text-2xl tracking-tighter z-[140]">R<span class="text-orange-600">B</span></a>
-        
         <div class="hidden md:flex gap-10 text-[10px] uppercase font-bold tracking-[0.3em]">
             <a href="#home" class="hover:text-orange-600 transition">Home</a>
             <a href="#about" class="hover:text-orange-600 transition">About</a>
+            <a href="#editing" class="hover:text-orange-600 transition">Editing</a>
             <a href="#stack" class="hover:text-orange-600 transition">Stack</a>
             <a href="#contact" class="hover:text-orange-600 transition">Contact</a>
         </div>
-
-        <button onclick="toggleMenu()" class="md:hidden flex flex-col gap-1.5 z-[140] relative focus:outline-none">
-            <span id="l1" class="line-1 w-6 h-0.5 bg-white transition-all duration-300"></span>
-            <span id="l2" class="line-2 w-6 h-0.5 bg-white transition-all duration-300"></span>
-            <span id="l3" class="line-3 w-4 h-0.5 bg-white self-end transition-all duration-300"></span>
+        <button onclick="toggleMenu()" class="md:hidden flex flex-col gap-1.5 z-[140] relative">
+            <span id="l1" class="line-1 w-6 h-0.5 bg-white transition-all"></span>
+            <span id="l2" class="line-2 w-6 h-0.5 bg-white transition-all"></span>
+            <span id="l3" class="line-3 w-4 h-0.5 bg-white self-end transition-all"></span>
         </button>
     </nav>
 
-    <div id="mobile-menu" class="fixed inset-0 bg-black z-[125] flex flex-col items-center justify-center gap-8 translate-x-full md:hidden">
-        <a href="#home" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter">Home</a>
-        <a href="#about" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter">About</a>
-        <a href="#stack" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter">Stack</a>
-        <a href="#contact" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-tighter text-orange-600">Contact</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-black z-[125] flex flex-col items-center justify-center gap-10 translate-x-full transition-transform duration-500 md:hidden">
+        <a href="#home" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">Home</a>
+        <a href="#about" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">About</a>
+        <a href="#editing" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">Editing</a>
+        <a href="#stack" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest">Stack</a>
+        <a href="#contact" onclick="toggleMenu()" class="text-4xl font-black uppercase tracking-widest text-orange-600">Contact</a>
     </div>
 
     <section id="home" class="relative min-h-screen flex flex-col justify-center px-6 md:px-20 overflow-hidden">
+        <img src="raj-photo.png" class="hero-bg-img" alt="Background">
         <div class="hero-overlay"></div>
         <div class="relative z-10">
             <h1 class="raj-title" data-aos="fade-right">RAJ<br><span class="outline-text">BIRANGAL</span></h1>
-            <p class="mt-6 text-gray-400 max-w-md tracking-widest uppercase text-xs" data-aos="fade-up" data-aos-delay="300">
-                Visual Storyteller & Professional Video Editor crafting cinematic experiences.
-            </p>
+            <p class="mt-6 text-gray-400 max-w-md tracking-widest uppercase text-xs" data-aos="fade-up">Professional Video Editor & Motion Designer</p>
         </div>
     </section>
 
-    <section id="stack" class="py-32 px-6 md:px-20 bg-[#050505] relative z-10">
+    <section id="about" class="py-24 px-6 md:px-20 relative z-10">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <h2 class="text-5xl font-black uppercase tracking-tighter mb-8 italic">About <span class="text-orange-600">Me</span></h2>
+                <p class="text-gray-400 leading-relaxed mb-6">I am a passionate video editor and storyteller dedicated to creating high-impact visual content. With expertise in cinematic editing and motion graphics, I turn raw footage into compelling narratives.</p>
+                <div class="cv-card p-8 rounded-2xl">
+                    <h4 class="text-orange-600 font-bold uppercase tracking-widest text-sm mb-4">Experience</h4>
+                    <p class="text-xl font-bold">5+ Years in Digital Production</p>
+                    <p class="text-gray-500 text-sm">Worked with 100+ clients worldwide.</p>
+                </div>
+            </div>
+            <div class="relative" data-aos="zoom-in">
+                <img src="raj.jpg" class="rounded-2xl grayscale hover:grayscale-0 transition duration-700 shadow-2xl" alt="Raj Photo">
+            </div>
+        </div>
+    </section>
+
+    <section id="stack" class="py-24 px-6 md:px-20 bg-[#050505]">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-4">
-                <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter" data-aos="fade-up">
-                    Software <br><span class="text-orange-600">Stack</span>
-                </h2>
-                <p class="text-gray-500 uppercase text-[10px] tracking-[0.5em] pb-2">Technical Proficiency</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12" id="skills-container">
-                <div class="group" data-aos="fade-up">
-                    <div class="flex justify-between items-end mb-4">
-                        <span class="font-bold tracking-[0.2em] text-xs uppercase group-hover:text-orange-600 transition">Adobe Premiere Pro</span>
-                        <span class="text-white font-black text-2xl">95%</span>
-                    </div>
-                    <div class="progress-line">
-                        <div class="progress-fill" style="--percent: 95%;"></div>
-                    </div>
+            <h2 class="text-5xl font-black mb-16 uppercase tracking-tighter" data-aos="fade-up">Software <span class="text-orange-600">Stack</span></h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12" id="skills-container">
+                <div class="space-y-3" data-aos="fade-up">
+                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">Premiere Pro</span><span class="text-orange-600 font-black text-xl">95%</span></div>
+                    <div class="progress-line"><div class="progress-fill" style="--percent: 95%;"></div></div>
                 </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="flex justify-between items-end mb-4">
-                        <span class="font-bold tracking-[0.2em] text-xs uppercase group-hover:text-orange-600 transition">After Effects</span>
-                        <span class="text-white font-black text-2xl">88%</span>
-                    </div>
-                    <div class="progress-line">
-                        <div class="progress-fill" style="--percent: 88%;"></div>
-                    </div>
+                <div class="space-y-3" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">After Effects</span><span class="text-orange-600 font-black text-xl">85%</span></div>
+                    <div class="progress-line"><div class="progress-fill" style="--percent: 85%;"></div></div>
                 </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="flex justify-between items-end mb-4">
-                        <span class="font-bold tracking-[0.2em] text-xs uppercase group-hover:text-orange-600 transition">DaVinci Resolve</span>
-                        <span class="text-white font-black text-2xl">82%</span>
-                    </div>
-                    <div class="progress-line">
-                        <div class="progress-fill" style="--percent: 82%;"></div>
-                    </div>
+                <div class="space-y-3" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">DaVinci Resolve</span><span class="text-orange-600 font-black text-xl">80%</span></div>
+                    <div class="progress-line"><div class="progress-fill" style="--percent: 80%;"></div></div>
                 </div>
-
-                <div class="group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="flex justify-between items-end mb-4">
-                        <span class="font-bold tracking-[0.2em] text-xs uppercase group-hover:text-orange-600 transition">Photoshop</span>
-                        <span class="text-white font-black text-2xl">90%</span>
-                    </div>
-                    <div class="progress-line">
-                        <div class="progress-fill" style="--percent: 90%;"></div>
-                    </div>
+                <div class="space-y-3" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex justify-between items-end"><span class="font-bold tracking-widest text-xs uppercase">Photoshop</span><span class="text-orange-600 font-black text-xl">90%</span></div>
+                    <div class="progress-line"><div class="progress-fill" style="--percent: 90%;"></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-20 text-center border-t border-white/5">
-        <p class="text-gray-500 uppercase tracking-widest text-xs">Available for new projects</p>
-        <h3 class="text-3xl font-bold mt-4">contact@rajbirangal.com</h3>
+    <section id="editing" class="py-24 px-6 md:px-20">
+        <h2 class="text-5xl font-black uppercase mb-16 italic" data-aos="fade-right">Latest <span class="text-orange-600">Work</span></h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="video-card aspect-video group cursor-pointer" data-aos="fade-up">
+                <div class="absolute inset-0 bg-orange-600/20 opacity-0 group-hover:opacity-100 transition duration-500 z-10 flex items-center justify-center">
+                    <span class="font-bold tracking-tighter text-xl">VIEW PROJECT</span>
+                </div>
+                <img src="https://via.placeholder.com/600x400/111/fff?text=Cinematic+Edit" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+            </div>
+            <div class="video-card aspect-video group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://via.placeholder.com/600x400/111/fff?text=Commercial+Ad" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+            </div>
+            <div class="video-card aspect-video group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://via.placeholder.com/600x400/111/fff?text=Music+Video" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-32 px-6 text-center bg-[#050505] border-t border-white/5">
+        <h2 class="text-6xl font-black uppercase mb-6 tracking-tighter" data-aos="zoom-in">Let's <span class="text-orange-600">Work</span></h2>
+        <p class="text-gray-500 tracking-[0.4em] uppercase text-xs mb-10">available for freelance projects</p>
+        <a href="mailto:raj@example.com" class="text-2xl md:text-4xl font-light hover:text-orange-600 transition border-b border-orange-600 pb-2">hello@rajbirangal.com</a>
     </section>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Initialize Animations
-        AOS.init({ duration: 1200, once: true });
+        AOS.init({ duration: 1000, once: true });
 
-        // Mobile Menu Logic
         function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const l1 = document.getElementById('l1');
-            const l2 = document.getElementById('l2');
-            const l3 = document.getElementById('l3');
-            
-            menu.classList.toggle('translate-x-full');
-            l1.classList.toggle('active');
-            l2.classList.toggle('active');
-            l3.classList.toggle('active');
-            
-            // Prevent scrolling when menu is open
-            document.body.style.overflow = menu.classList.contains('translate-x-full') ? 'auto' : 'hidden';
+            document.getElementById('mobile-menu').classList.toggle('translate-x-full');
+            document.getElementById('l1').classList.toggle('active');
+            document.getElementById('l2').classList.toggle('active');
+            document.getElementById('l3').classList.toggle('active');
         }
 
-        // Percentage Bar Animation on Scroll
-        const observerOptions = { threshold: 0.2 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('reveal-bars');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.3 });
 
         observer.observe(document.getElementById('skills-container'));
     </script>
